@@ -33,6 +33,7 @@ export default function Quiz() {
   return (
     <div id="quiz">
       <Question
+        key={activeQuestionIndex}
         questionIndex={activeQuestionIndex}
         onSelectAnswer={handleSelectAnswer}
         onSkipAnswer={handleSkipAnswer}
