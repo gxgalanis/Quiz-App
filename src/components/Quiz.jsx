@@ -1,33 +1,42 @@
-import { useCallback, useState } from 'react';
-import QUESTIONS from '../questions.js';
-import quizCompleteImg from '../assets/quiz-complete.png';
-import Question from './Question.jsx';
+import { useCallback, useState } from "react";
+import QUESTIONS from "../questions.js";
+import quizCompleteImg from "../assets/quiz-complete.png";
+import Question from "./Question.jsx";
 
-export default function Quiz(){
-    const [userAnswers,setUserAnswers] = useState([]);
+export default function Quiz() {
+  const [userAnswers, setUserAnswers] = useState([]);
 
-    const activeQuestionIndex = userAnswers.length;
-    const quizIsComplete = activeQuestionIndex === QUESTIONS.length;
+  const activeQuestionIndex = userAnswers.length;
+  const quizIsComplete = activeQuestionIndex === QUESTIONS.length;
 
-    const handleSelectAnswer = useCallback(function handleSelectAnswer(selectedAnswer){
-        setUserAnswers(prevAnswers => 
-            [...prevAnswers,selectedAnswer]
-        );
-    }, []);
+  const handleSelectAnswer = useCallback(function handleSelectAnswer(
+    selectedAnswer
+  ) {
+    setUserAnswers((prevAnswers) => [...prevAnswers, selectedAnswer]);
+  },
+  []);
 
-    const handleSkipAnswer = useCallback(()=> handleSelectAnswer(null),[handleSelectAnswer]);
+  const handleSkipAnswer = useCallback(
+    () => handleSelectAnswer(null),
+    [handleSelectAnswer]
+  );
 
-    if(quizIsComplete){
-        return <div id="summary">
-            <img src={quizCompleteImg} alt="Quiz is complete"/>
-            <h2>Quiz Completed!</h2>
-        </div>
-    }  
+  if (quizIsComplete) {
+    return (
+      <div id="summary">
+        <img src={quizCompleteImg} alt="Quiz is complete" />
+        <h2>Quiz Completed!</h2>
+      </div>
+    );
+  }
 
-    return <div id="quiz">
-        <Question
-            questionIndex={activeQuestionIndex}
-            onSelectAnswer={handleSelectAnswer}
-            onSkipAnswer={handleSkipAnswer}/>
-    </div>;
+  return (
+    <div id="quiz">
+      <Question
+        questionIndex={activeQuestionIndex}
+        onSelectAnswer={handleSelectAnswer}
+        onSkipAnswer={handleSkipAnswer}
+      />
+    </div>
+  );
 }
